@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 module.exports.createUser = async serviceData => {
-  console.log(serviceData)
   try {
     const user = await User.findOne({ email: serviceData.email })
     if (user) {
@@ -17,9 +16,9 @@ module.exports.createUser = async serviceData => {
       password: hashPassword,
       firstName: serviceData.firstName,
       lastName: serviceData.lastName,
-      userName: serviceData.userName
+      userName: serviceData.userName,
     })
-  console.log(newUser)
+    console.log(newUser)
     let result = await newUser.save()
 
     return result
@@ -63,7 +62,7 @@ module.exports.loginUser = async serviceData => {
     const token = jwt.sign(
       { id: user._id },
       process.env.SECRET_KEY || 'default-secret-key',
-      { expiresIn: '1d' }
+      { expiresIn: '1d' },
     )
 
     return { token }
@@ -75,14 +74,15 @@ module.exports.loginUser = async serviceData => {
 
 module.exports.updateUserProfile = async serviceData => {
   try {
+    console.log(serviceData.body)
     const jwtToken = serviceData.headers.authorization.split('Bearer')[1].trim()
     const decodedJwtToken = jwt.decode(jwtToken)
     const user = await User.findOneAndUpdate(
       { _id: decodedJwtToken.id },
       {
-        userName: serviceData.body.userName
+        userName: serviceData.body.userName,
       },
-      { new: true }
+      { new: true },
     )
 
     if (!user) {
