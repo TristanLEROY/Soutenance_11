@@ -16,7 +16,7 @@ export function Hero() {
         <p className='flex lg:text-2xl font-bold mr-auto'>
           High interest rates
         </p>
-        <p className='lg:text-2xl'>
+        <p className='lg:text-2xl mr-auto'>
           Open a savings account with Argent Bank today
         </p>
       </div>

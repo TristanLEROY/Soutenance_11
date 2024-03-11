@@ -40,12 +40,21 @@ export function Modal() {
 
   return (
     <div className='flex flex-col items-center'>
-      <button
-        className='button shadow-lg border-b-white border-r-white border-4 p-2 bg-[#00bc77] text-white lg:text-xl w-30 lg:font-bold mt-9 border-solid border-black max-md:h-8 flex justify-center items-center font-semibold'
-        onClick={toggleButton}
-      >
-        Edit Name
-      </button>
+      {!showForm ? (
+        <button
+          className='button shadow-lg border-b-white border-r-white border-4 p-2 bg-[#00bc77] text-white lg:text-xl w-30 lg:font-bold mt-9 border-solid border-black max-md:h-8 flex justify-center items-center font-semibold'
+          onClick={toggleButton}
+        >
+          Edit Name
+        </button>
+      ) : (
+        <button
+          className='button shadow-lg border-b-white border-r-white border-4 p-2 bg-[#00bc77] text-white lg:text-xl w-30 lg:font-bold mt-9 border-solid border-black max-md:h-8 flex justify-center items-center font-semibold'
+          onClick={toggleButton}
+        >
+          Close
+        </button>
+      )}
       {showForm && (
         <form className='flex flex-col gap-4 items-center'>
           <label
