@@ -120,6 +120,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/transactions        
     put:
       security:
         - Bearer: []
@@ -141,6 +142,69 @@ paths:
           description: User transaction retrieved successully
           schema:
             $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/transactions/{AccountId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: User Transaction API
+      description: API for fetching a user unique account 
+      parameters:
+        - in: path
+          name: AccountID
+          description: ID of the wanted account in path
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update user account attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserTransaction'
+      responses:
+        '200':
+          description: User account retrieved successully
+          schema:
+            $ref: '#/definitions/AccountResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/transactions/{AccountId}/{month}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: User Transaction API
+      description: API for fetching a user unique account for a specific month
+      parameters:
+        - in: path
+          name: AccountID
+          description: ID of the wanted account in path
+          required: true
+          type: string
+        - in : path
+          name: month
+          description: month datas wanted
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update user account attributes
+          required: true
+          schema:
+            $ref: '#/definitions/AccountPeriodFilter'
+      responses:
+        '200':
+          description: User account retrieved successully
+          schema:
+            $ref: '#/definitions/AccountResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -176,7 +240,7 @@ definitions:
       password:
         type: string
         description: user password
-  Transaction:
+  UserTransaction:
     properties:
       id:
         type: number
@@ -251,4 +315,48 @@ definitions:
           category:
             type: string
           note:
+            type: string
+  UserTransaction:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: number
+          accountID:
+            type: number
+          date:
+            type: string
+          description:
+            type: string
+          accountType:
+            type: string
+          category:
+            type: string
+  AccountPeriodFilter:
+  type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: number
+          accountID:
+            type: number
+          amount:
+            type: number
+          date:
+            type: string
+          description:
+            type: string
+          type:
             type: string
