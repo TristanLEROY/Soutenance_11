@@ -1,4 +1,4 @@
-import heroLogo from '@/assets/img/bank-tree.jpeg'
+import heroLogo from '@/assets/img/bank-tree.webp'
 
 export function Hero() {
   return (

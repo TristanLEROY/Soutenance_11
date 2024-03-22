@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '@/assets/img/argentBankLogo.png'
+import logo from '@/assets/img/argentbanklogo.webp'
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/store'
 import { signOut } from '@/store/user'

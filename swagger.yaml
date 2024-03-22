@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /transactions/{transactionid}:
     get:
       security:
         - Bearer: []
@@ -111,6 +111,12 @@ paths:
       description: API for fetching a user transactions
       #produces:
       # - application/json
+      parameters:
+        - in: path
+          name: transactionid
+          description: ID of the wanted transaction in path
+          required: true
+          type: string
       responses:
         '200':
           description: User transactions retrieved successully
@@ -120,7 +126,6 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions        
     put:
       security:
         - Bearer: []
@@ -129,12 +134,18 @@ paths:
       summary: User Transaction API
       description: API for updating a user Transaction
       parameters:
+        - in: path
+          name: transactionid
+          description: ID of the wanted transaction in path
+          required: true
+          type: string
         - in: body
           name: body
           description: Update user transaction attributes
           required: true
           schema:
             $ref: '#/definitions/UserTransaction'
+
       produces:
         - application/json
       responses:
@@ -146,36 +157,30 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions/{AccountId}:
+  /account/transactions/{AccountID}:
     get:
       security:
         - Bearer: []
       tags:
         - Account Module
       summary: User Transaction API
-      description: API for fetching a user unique account 
+      description: API for fetching a user unique account
       parameters:
         - in: path
           name: AccountID
           description: ID of the wanted account in path
           required: true
           type: string
-        - in: body
-          name: body
-          description: Update user account attributes
-          required: true
-          schema:
-            $ref: '#/definitions/UserTransaction'
       responses:
         '200':
           description: User account retrieved successully
           schema:
-            $ref: '#/definitions/AccountResponse'
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions/{AccountId}/{month}:
+  /account/transactions/{AccountID}/{month}:
     get:
       security:
         - Bearer: []
@@ -189,22 +194,16 @@ paths:
           description: ID of the wanted account in path
           required: true
           type: string
-        - in : path
+        - in: path
           name: month
           description: month datas wanted
           required: true
           type: string
-        - in: body
-          name: body
-          description: Update user account attributes
-          required: true
-          schema:
-            $ref: '#/definitions/AccountPeriodFilter'
       responses:
         '200':
           description: User account retrieved successully
           schema:
-            $ref: '#/definitions/AccountResponse'
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -316,30 +315,9 @@ definitions:
             type: string
           note:
             type: string
-  UserTransaction:
-    type: object
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: object
-        properties:
-          id:
-            type: number
-          accountID:
-            type: number
-          date:
-            type: string
-          description:
-            type: string
-          accountType:
-            type: string
-          category:
-            type: string
+
   AccountPeriodFilter:
-  type: object
+    type: object
     properties:
       status:
         type: integer
