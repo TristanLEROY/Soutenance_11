@@ -315,26 +315,3 @@ definitions:
             type: string
           note:
             type: string
-
-  AccountPeriodFilter:
-    type: object
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: object
-        properties:
-          id:
-            type: number
-          accountID:
-            type: number
-          amount:
-            type: number
-          date:
-            type: string
-          description:
-            type: string
-          type:
-            type: string
